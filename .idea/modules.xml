@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Developpez-une-application-full-stack-complete.iml" filepath="$PROJECT_DIR$/.idea/Developpez-une-application-full-stack-complete.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MddApi.iml" filepath="$PROJECT_DIR$/.idea/MddApi.iml" />
     </modules>
   </component>
 </project>

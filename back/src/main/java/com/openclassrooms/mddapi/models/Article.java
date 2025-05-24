@@ -2,17 +2,22 @@ package com.openclassrooms.mddapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "articles")
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Size(min = 2, max = 150)
+    private String title;
 
     @NotBlank
     @Lob
@@ -22,19 +27,25 @@ public class Comment {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate createdAt;
 
+    // Relation ManyToOne vers l'utilisateur auteur
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User author;
 
+    // Relation ManyToOne vers le thème
     @ManyToOne(optional = false)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 
-    public Comment() {}
+    public Article() {}
 
-    // Getters & Setters
+    // Getters et Setters
 
     public Long getId() { return id; }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
 
     public String getContent() { return content; }
 
@@ -48,7 +59,7 @@ public class Comment {
 
     public void setAuthor(User author) { this.author = author; }
 
-    public Article getArticle() { return article; }
+    public Theme getTheme() { return theme; }
 
-    public void setArticle(Article article) { this.article = article; }
+    public void setTheme(Theme theme) { this.theme = theme; }
 }
