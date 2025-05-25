@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "themes")
 public class Theme {
@@ -19,6 +21,12 @@ public class Theme {
 
     @Size(max = 255)
     private String description;
+
+    private Long owner_id;
+
+    private LocalDate createdAt;
+
+    private LocalDate updatedAt;
 
     // Constructeur par défaut (obligatoire pour JPA)
     public Theme() {}
@@ -43,5 +51,29 @@ public class Theme {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(Long owner_id) {
+        this.owner_id = owner_id;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;  // Retourner LocalDate et non LocalDateTime
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;  // Retourner LocalDate
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
