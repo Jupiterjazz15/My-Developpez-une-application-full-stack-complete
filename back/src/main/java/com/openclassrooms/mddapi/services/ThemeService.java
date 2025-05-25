@@ -102,7 +102,7 @@ public class ThemeService {
         }
     }
 
-    // Méthode pour convertir un ThemeRequest en Theme
+    // CONVERTIR THEMEREQUEST EN THEME
     public Theme convertToTheme(ThemeRequest themeRequest) {
         Theme theme = new Theme();
         theme.setTitle(themeRequest.getTitle());

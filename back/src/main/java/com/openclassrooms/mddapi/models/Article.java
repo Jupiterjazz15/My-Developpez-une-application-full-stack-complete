@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,6 +26,10 @@ public class Article {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate createdAt;
 
+    @Column(name = "updated_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    private LocalDate updatedAt;
+
     // Relation ManyToOne vers l'utilisateur auteur
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
@@ -41,25 +44,55 @@ public class Article {
 
     // Getters et Setters
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public String getContent() { return content; }
+    public String getContent() {
+        return content;
+    }
 
-    public void setContent(String content) { this.content = content; }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-    public LocalDate getCreatedAt() { return createdAt; }
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
 
-    public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 
-    public User getAuthor() { return author; }
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
 
-    public void setAuthor(User author) { this.author = author; }
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-    public Theme getTheme() { return theme; }
+    public User getAuthor() {
+        return author;
+    }
 
-    public void setTheme(Theme theme) { this.theme = theme; }
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
 }
