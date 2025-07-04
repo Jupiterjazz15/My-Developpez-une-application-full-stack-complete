@@ -15,5 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")  // Permet les requêtes depuis le frontend Angular
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Les méthodes HTTP autorisées
                 .allowedHeaders("*");  // Permet tous les en-têtes
+                .allowCredentials(true);
     }
 }

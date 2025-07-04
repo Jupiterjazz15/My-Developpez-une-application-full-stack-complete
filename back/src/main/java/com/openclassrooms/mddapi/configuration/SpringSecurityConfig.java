@@ -34,8 +34,8 @@ public class SpringSecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/api/auth/login",
-                                "/api/auth/register", // Corrigé avec le préfixe complet
-                                "/uploads/**").permitAll()
+                                "/api/auth/register"
+                            ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())));
