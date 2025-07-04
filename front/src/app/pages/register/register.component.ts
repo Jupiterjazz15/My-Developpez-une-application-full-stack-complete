@@ -14,8 +14,9 @@ import { of } from 'rxjs';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  // objet ou variable qui va contenir le form
-  registerForm!: FormGroup
+
+  registerForm!: FormGroup  // objet ou variable qui va contenir le form
+
   registerForm$!: Observable<{
     name: string;
     email: string;
@@ -26,8 +27,7 @@ export class RegisterComponent implements OnInit {
       private formBuilder: FormBuilder,
       private authService: AuthService,
       private router: Router
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({

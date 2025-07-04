@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <h1>Se connecter</h1>
+
+  <form  [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+
+    <div>
+      <label for="usernameOrEmail">Email ou nom d'utilisateur</label>
+      <input id="usernameOrEmail" formControlName="usernameOrEmail" type="text" required />
+    </div>
+
+    <div>
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" required />
+    </div>
+
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Se connecter</button>
+
+  </form>
+
+</div>
+

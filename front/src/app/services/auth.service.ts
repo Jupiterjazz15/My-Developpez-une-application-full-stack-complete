@@ -27,4 +27,15 @@ export class AuthService {
       })
     );
   }
+
+  login(credentials: { usernameOrEmail: string; password: string }): Observable<AuthResponse> {
+    // Vérifie si le champs est un email
+    const loginData = {
+      usernameOrEmail: credentials.usernameOrEmail,
+      password: credentials.password
+    };
+
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData);
+  }
+
 }

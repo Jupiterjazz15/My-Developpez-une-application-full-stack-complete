@@ -12,9 +12,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Permet toutes les routes et autorise les requêtes de localhost:4200
         registry.addMapping("/**") // Autoriser toutes les routes de l'API
-                .allowedOrigins("*")  // Permet les requêtes depuis le frontend Angular
+                .allowedOrigins("http://localhost:4200")  // Permet uniquement les requêtes depuis le frontend Angular
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Les méthodes HTTP autorisées
-                .allowedHeaders("*");  // Permet tous les en-têtes
-                .allowCredentials(true);
+                .allowedHeaders("*") // Permet tous les en-têtes
+                .allowCredentials(true);  // Autoriser l'envoi de cookies et autres informations d'authentification
     }
+
 }
