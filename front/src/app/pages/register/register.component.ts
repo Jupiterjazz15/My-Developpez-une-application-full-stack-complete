@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
-import { RegisterForm } from '../../models/registerForm';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import {AuthResponse} from "../../models/authResponse";
+
+import { tap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +24,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
+      private authService: AuthService,
+      private router: Router
   ) {
   }
 
@@ -31,25 +38,23 @@ export class RegisterComponent implements OnInit {
     this.registerForm$ = this.registerForm.valueChanges;
   }
 
-  // Méthode pour soumettre le formulaire
   onSubmitForm() {
     if (this.registerForm.valid) {
       const { name, email, password } = this.registerForm.value;
 
-      // Appeler un service d'authentification pour inscrire l'utilisateur
-      this.authService.register({ name, email, password }).subscribe(
-          (response) => {
-            // Si l'inscription est réussie, rediriger vers la page de connexion
+      this.authService.register({ name, email, password }).pipe(
+          tap((response: AuthResponse) => {
+            console.log('Inscription réussie', response);
             this.router.navigate(['/login']);
-          },
-          (error) => {
-            // Si une erreur survient, afficher un message d'erreur
-            console.error('Inscription échouée', error);
-          }
-      );
+          }),
+          catchError((error) => {
+            console.error('Erreur d\'inscription', error);
+            return of(null);  // On retourne un Observable par défaut en cas d'erreur
+          })
+      ).subscribe();
     } else {
-      // Si le formulaire est invalide, afficher une erreur
       console.log('Le formulaire est invalide');
     }
   }
+
 }

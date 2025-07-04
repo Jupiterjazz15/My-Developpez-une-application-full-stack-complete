@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -20,9 +22,16 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,  // Ajouter l'intercepteur dans les fournisseurs
+      multi: true // multi=true permet de chaîner plusieurs intercepteurs
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
