@@ -38,14 +38,14 @@ export class RegisterComponent implements OnInit {
     this.registerForm$ = this.registerForm.valueChanges;
   }
 
-  onSubmitForm() {
+  onSubmitForm():void {
     if (this.registerForm.valid) {
       const { name, email, password } = this.registerForm.value;
 
-      this.authService.register({ name, email, password }).pipe(
-          tap((response: AuthResponse) => {
+      this.authService.register({ name, email, password }).pipe( // appel de la mthd de auth.service
+          tap((response: AuthResponse):void => {
             console.log('Inscription réussie', response);
-            this.router.navigate(['/login']);
+            this.router.navigate(['/']);
           }),
           catchError((error) => {
             console.error('Erreur d\'inscription', error);
