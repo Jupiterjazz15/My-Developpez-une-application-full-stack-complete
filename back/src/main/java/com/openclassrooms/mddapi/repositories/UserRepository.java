@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // MTHD DE JPAREPOSITORY
     User findByEmail(String email);
 
+    // Ajout d'une méthode pour rechercher un utilisateur par email ou nom d'utilisateur
+    User findByEmailOrName(String email, String name); // Permet de rechercher par email ou nom
 }

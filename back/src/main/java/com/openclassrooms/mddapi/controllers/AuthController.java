@@ -30,12 +30,17 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> getToken(@Valid @RequestBody LoginRequest loginRequest) {
-        if (userService.existsByEmail(loginRequest.getEmail())) {
-            String token = jwtService.generateToken( loginRequest.getEmail());
-            return ResponseEntity.ok(Map.of("token", token));
-        } else {
+        // Recherche l'utilisateur soit par email, soit par nom d'utilisateur
+        User user = userService.findByEmailOrName(loginRequest.getEmail());  // Note que findByEmailOrName existe déjà dans ton repository
+
+        if (user == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "User does not exist"));
         }
+
+        // Si l'utilisateur existe, générer un token
+        String token = jwtService.generateToken(user.getEmail()); // Utiliser l'email pour générer le token, même si c'est par nom d'utilisateur
+
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
     @PostMapping("/register")

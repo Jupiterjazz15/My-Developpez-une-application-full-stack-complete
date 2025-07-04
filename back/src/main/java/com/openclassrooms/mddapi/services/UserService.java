@@ -41,6 +41,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // Cette méthode a été ajoutée pour permettre de rechercher un utilisateur par email OU nom d'utilisateur
+    public User findByEmailOrName(String usernameOrEmail) {
+        // Recherche d'un utilisateur par email OU nom d'utilisateur
+        return userRepository.findByEmailOrName(usernameOrEmail, usernameOrEmail);
+    }
+
     public UserDto getUserByEmail(String email) {
         // convert User to UserDto
         User user = userRepository.findByEmail(email);
