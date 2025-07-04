@@ -10,13 +10,15 @@ import { LoginComponent } from './pages/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import { ArticleComponent } from './pages/article/article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RegisterComponent,
-    LoginComponent],
+    LoginComponent,
+    ArticleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
