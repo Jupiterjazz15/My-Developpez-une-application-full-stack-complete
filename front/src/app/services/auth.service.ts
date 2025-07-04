@@ -35,7 +35,7 @@ export class AuthService {
       password: credentials.password
     };
 
-    return this.http.post<AuthResponse>(`${this.apiUrl}/articles`, loginData);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData);
   }
 
 }

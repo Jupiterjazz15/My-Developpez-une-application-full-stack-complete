@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'article', component: ArticleComponent },
+  { path: 'articles', component: ArticleComponent },
   { path: '**', redirectTo: '/' } // si route inconnue, retour à la home
 ];
 

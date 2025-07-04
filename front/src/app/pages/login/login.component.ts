@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           console.log('Connexion réussie', response);
           // Redirection vers la page d'accueil ou un autre chemin
-          this.router.navigate(['/']);
+          this.router.navigate(['/articles']);
         },
         (error) => {
           console.error('Erreur lors de la connexion', error);
