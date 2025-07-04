@@ -3,17 +3,19 @@ package com.openclassrooms.mddapi.controllers;
 import com.openclassrooms.mddapi.dtos.LoginRequest;
 import com.openclassrooms.mddapi.dtos.RegisterRequest;
 import com.openclassrooms.mddapi.dtos.UserDto;
+import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.JWTService;
 import com.openclassrooms.mddapi.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
-
 
 @RestController
 @RequestMapping("api/auth")
@@ -23,6 +25,9 @@ public class AuthController {
 
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Injection du PasswordEncoder
+
     public AuthController(JWTService jwtService, UserService userService) {
         this.jwtService = jwtService;
         this.userService = userService;
@@ -30,15 +35,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> getToken(@Valid @RequestBody LoginRequest loginRequest) {
-        // Recherche l'utilisateur soit par email, soit par nom d'utilisateur
-        User user = userService.findByEmailOrName(loginRequest.getEmail());  // Note que findByEmailOrName existe déjà dans ton repository
+        // Recherche d'un utilisateur par email OU nom d'utilisateur
+        User user = userService.findByEmailOrName(loginRequest.getUsernameOrEmail());
 
         if (user == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "User does not exist"));
         }
 
-        // Si l'utilisateur existe, générer un token
-        String token = jwtService.generateToken(user.getEmail()); // Utiliser l'email pour générer le token, même si c'est par nom d'utilisateur
+        // Vérifier le mot de passe de l'utilisateur
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid password"));
+        }
+
+        // Générer le token
+        String token = jwtService.generateToken(user.getEmail());
 
         return ResponseEntity.ok(Map.of("token", token));
     }

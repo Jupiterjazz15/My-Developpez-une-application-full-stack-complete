@@ -1,23 +1,24 @@
 package com.openclassrooms.mddapi.dtos;
 
-import jakarta.validation.constraints.NotBlank;// Annotation pour spécifier que le champs ne doivent pas être vides
+import jakarta.validation.constraints.NotBlank;  // Annotation pour spécifier que le champ ne doit pas être vide
 
-// DTO POUR TRANSPORTER LES DONNÉES ENVOYÉES PAR LE USER LORS D'UNE REQUETE DE CONNEXION
+// DTO pour transporter les données envoyées par l'utilisateur lors d'une requête de connexion
 public class LoginRequest {
 
-    // déclaration des attributs
+    // Déclaration des attributs
     @NotBlank
-    private String email;
+    private String usernameOrEmail; // Modification du champ pour accepter email ou nom d'utilisateur
+
     @NotBlank
     private String password;
 
-    // GETTERS & SETTERS
-    public String getEmail() {
-        return email;
+    // Getters et Setters
+    public String getUsernameOrEmail() {
+        return usernameOrEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsernameOrEmail(String usernameOrEmail) {
+        this.usernameOrEmail = usernameOrEmail;
     }
 
     public String getPassword() {

@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'article', component: ArticleComponent },
   { path: '**', redirectTo: '/home' } // si route inconnue, retour à la home
 ];
 
