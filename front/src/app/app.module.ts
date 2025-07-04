@@ -10,7 +10,8 @@ import { LoginComponent } from './pages/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
-import { ArticleComponent } from './pages/article/article.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ArticleListComponent } from './pages/article-list/article-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ArticleComponent } from './pages/article/article.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    ArticleComponent],
+    NavbarComponent,
+    ArticleListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
