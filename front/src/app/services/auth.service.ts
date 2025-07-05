@@ -29,13 +29,25 @@ export class AuthService {
   }
 
   login(credentials: { usernameOrEmail: string; password: string }): Observable<AuthResponse> {
-    // Vérifie si le champs est un email
+
     const loginData = {
       usernameOrEmail: credentials.usernameOrEmail,
       password: credentials.password
     };
 
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData);
+    // Effectuer la requête pour le login
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData).pipe(
+      tap((response: AuthResponse) => {
+        // Vérifier si la réponse contient un token et le stocker dans localStorage
+        if (response && response.token) {
+          localStorage.setItem('token', response.token);  // Mettre à jour le token dans localStorage
+        }
+      })
+    );
   }
 
+  // Méthode pour récupérer le token stocké dans le localStorage
+  getToken(): string | null {
+    return localStorage.getItem('token');  // Récupère le token du localStorage
+  }
 }

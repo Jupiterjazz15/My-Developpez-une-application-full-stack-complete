@@ -1,2 +1,15 @@
 <app-navbar></app-navbar>
-<p>article-list works!</p>
+
+<div *ngIf="articles.length > 0; else noArticles">
+  <div *ngFor="let article of articles" class="article-item">
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
+    <p><strong>Author:</strong> {{ article.author.name }}</p>
+    <p><small>{{ article.createdAt | date }}</small></p>
+    <a [routerLink]="['/article', article.id]">Lire l'article</a>  <!-- Lien vers le détail de l'article -->
+  </div>
+</div>
+
+<ng-template #noArticles>
+  <p>Aucun article disponible.</p>
+</ng-template>
